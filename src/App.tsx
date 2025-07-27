@@ -13,7 +13,11 @@ function App() {
   // Removed fetchApiAudio, will use upload response directly
 
   const handleStartRecording = async () => {
+    // Reset all states to initial values
     setAudioURL(null);
+    setAudioBlob(null);
+    setApiAudioURL(null);
+    setUploadStatus(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
@@ -49,7 +53,7 @@ function App() {
     formData.append('file', audioBlob, 'recording.webm');
     formData.append('language', language);
     try {
-      const response = await fetch('http://localhost:8000/upload-audio/', {
+      const response = await fetch('https://392a0e97340c.ngrok-free.app/upload-audio/', {
         method: 'POST',
         body: formData,
       });
